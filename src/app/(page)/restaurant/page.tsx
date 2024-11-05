@@ -34,9 +34,11 @@ const TabFeatures: React.FC<Partial<Props>> = ({ start, limit }) => {
             const loadRestaurant = async () => {
                 try {
                     const restaurantData = await fetchRestaurantOne(userId);
+                    console.log(restaurantData);
                     setModalRestaurant(restaurantData);
                     setIsModalOpen(true);
                 } catch (error) {
+                    console.error("Error fetching restaurant:", error);
                     setIsModalOpen(false);
                 }
             }
@@ -123,7 +125,7 @@ const TabFeatures: React.FC<Partial<Props>> = ({ start, limit }) => {
                 {renderSwiper('#친구 모임', restaurantsByFriend, 3)}
             </div>
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                {modalRestaurant !== null ? (
+                {modalRestaurant ? (
                     <div className={"text-center"}>
                         <h5></h5>
                         <h1>오늘 이 음식점 어때요?</h1>

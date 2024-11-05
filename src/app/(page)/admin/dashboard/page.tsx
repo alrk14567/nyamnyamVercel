@@ -21,9 +21,6 @@ import {
     fetchUpvoteRestaurant
 } from "src/app/service/admin/admin.service";
 import {Area, CountCost, CountItem, RestaurantList} from "src/app/model/dash.model";
-import {User} from "@/app/model/user.model";
-import nookies from "nookies";
-import {fetchUserById} from "@/app/api/user/user.api";
 
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, ArcElement, CategoryScale, LinearScale, PointElement, LineElement);
@@ -33,10 +30,8 @@ const DashBoard = () => {
     const [restaurant, setRestaurant] = useState<RestaurantList[]>([]);
     const [countRestaurant, setCountRestaurant] = useState<CountCost[]>([]);
     const [upvoteRestaurant, setUpvoteRestaurant] = useState<RestaurantList[]>([]);
-    const [user, setUser] = useState<User | null>(null);
+    const [role, setRole] = useState<string | null>(null);
 
-    const cookie = nookies.get();
-    const userId = cookie.userId;
 
     useEffect(() => {
         const list = async () => {
@@ -52,12 +47,18 @@ const DashBoard = () => {
             const data = await fetchUpvoteRestaurant();
             setUpvoteRestaurant(data);
 
-            const myInfo = await fetchUserById(userId);
-            setUser(myInfo);
+
 
         };
         list();
     }, []);
+
+    if (typeof window !== 'undefined') {
+        const role = localStorage.getItem('role');
+        setRole(role)
+
+    }
+
 
 
     const areaData = {
@@ -107,7 +108,7 @@ const DashBoard = () => {
     };
 
 
-    if (user?.role !== 'ADMIN') {
+    if (role !== 'ADMIN') {
         return (
             <div className="unauthorized text-center mt-5">
                 <h2>권한이 없습니다</h2>

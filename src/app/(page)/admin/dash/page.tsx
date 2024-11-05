@@ -24,10 +24,9 @@ import DashBoard from "src/app/(page)/admin/dashboard/page";
 import {fetchReportCountAll, fetchReportList} from "src/app/service/report/report.service";
 import {ReportModel} from "src/app/model/report.model";
 import UserList from "@/app/(page)/user/userList/page";
-import {fetchAllUsers, fetchUserById} from "@/app/api/user/user.api";
+import {fetchAllUsers} from "@/app/api/user/user.api";
 import {User} from "@/app/model/user.model";
 import {PostModel} from "@/app/model/post.model";
-import nookies from "nookies";
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, ArcElement, CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -38,17 +37,19 @@ export default function AdminDash() {
     const [reportCountList, setReportCountList] = useState<ReportCountModel[]>([]);
     const [reportList, setReportList] = useState<ReportModel[]>([]);
     const [openIndex, setOpenIndex] = useState<number | null>(null);
-    const [userList, setUserList] = useState<User[]>([]);
+    const [user, setUser] = useState<User[]>([]);
     const [todayPost, setTodayPost] = useState<PostModel[]>([]);
-    const [user, setUser] = useState<User | null>(null);
+    const [role, setRole] = useState<string | null>(null);
 
 
-    const cookie = nookies.get();
-    const userId = cookie.userId;
+
+    const handleRowClick = (index: number) => {
+        setOpenIndex(openIndex === index ? null : index);
+    };
 
 
     useEffect(() => {
-        const fetchData = async () => {
+        const list = async () => {
             const countData = await fetchShowCount();
             setCount(countData);
 
@@ -59,18 +60,20 @@ export default function AdminDash() {
             setReportList(listData);
 
             const userData = await fetchAllUsers();
-            setUserList(userData);
+            setUser(userData);
 
             const todayData = await fetchCurrentPost();
             setTodayPost(todayData);
 
-            const myInfo = await fetchUserById(userId);
-            setUser(myInfo);
+            const storedRole = localStorage.getItem('role');
+            if (storedRole) {
+                setRole(storedRole);
+            }
 
         };
 
-        fetchData();
-    }, [userId]);
+        list();
+    }, []);
 
 
 
@@ -87,21 +90,23 @@ export default function AdminDash() {
         ],
     };
 
-    const totalUser = userList.length;
+    const totalUser = user.length;
     const totalTodayPost = todayPost.length;
 
 
-    const handleRowClick = (index: number) => {
-        setOpenIndex(openIndex === index ? null : index);
-    };
 
+    if (role !== 'ADMIN') {
+        return (
+            <div className="unauthorized text-center mt-5">
+                <h2>권한이 없습니다</h2>
+                <p>You do not have permission to view this content.</p>
+            </div>
+        );
+    }
 
     return (
         <>
-            {user?.role !== 'ADMIN' ? (
-                <div className="unauthorized text-center mt-5">
-                </div>
-                ) : (
+
             <div className="profile-block md:py-20 py-10 md:px-8 px-4 mt-10">
                 <div className="container">
                     <div className="content-main flex gap-y-8 max-md:flex-col w-full">
@@ -282,7 +287,6 @@ export default function AdminDash() {
                     </div>
                 </div>
             </div>
-            )}
         </>
     )
 

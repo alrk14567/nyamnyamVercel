@@ -3,23 +3,12 @@ import React, {useEffect, useState} from "react";
 import {fetchShowOpinion} from "src/app/service/opinion/opinion.serivce";
 import {OpinionModel} from "src/app/model/opinion.model";
 import styles from "src/css/mypage.module.css";
-import {User} from "@/app/model/user.model";
-import nookies from "nookies";
-import {fetchUserById} from "@/app/api/user/user.api";
 
 export default function ShowOpinion() {
     const [opinion, setOpinion] = useState<OpinionModel[]>([]);
-    const [user, setUser] = useState<User | null>(null);
-
-    const cookie = nookies.get();
-    const userId = cookie.userId;
 
     useEffect(() => {
         const loadOpinions = async() => {
-
-            const myInfo = await fetchUserById(userId);
-            setUser(myInfo);
-
             try {
                 const opinions = await fetchShowOpinion();
                 setOpinion(opinions);
@@ -30,16 +19,6 @@ export default function ShowOpinion() {
         }
         loadOpinions()
     }, []);
-
-
-    if (user?.role !== 'ADMIN') {
-        return (
-            <div className="unauthorized text-center mt-5">
-                <h2>권한이 없습니다</h2>
-                <p>You do not have permission to view this content.</p>
-            </div>
-        );
-    }
 
 
     return (

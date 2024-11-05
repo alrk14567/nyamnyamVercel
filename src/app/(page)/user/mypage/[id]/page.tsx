@@ -82,6 +82,8 @@ export default function MyPage() {
                 const data2 = await fetchShowFollowing(user.nickname);
                 setFollower(data1);
                 setFollowing(data2);
+                console.log(data1);
+                console.log(data2);
             }
         };
 

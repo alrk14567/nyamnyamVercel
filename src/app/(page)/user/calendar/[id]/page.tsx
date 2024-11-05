@@ -38,6 +38,7 @@ const MyCalendar: React.FC = () => {
             try {
                 const updatedData = await fetchReceiptWallet(id);
                 setWallet(updatedData);
+                console.log(updatedData);
             } catch (error) {
                 console.error("Error fetching wallet data:", error);
             }

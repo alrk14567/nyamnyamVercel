@@ -101,7 +101,7 @@ export default function FollowList() {
                 )}
             </div>
             <Modal isOpen={isModalOpen} onClose={closeModal}>
-                {selectedUser && <Account selectUser={selectedUser} />}
+                {selectedUser && <Account user={selectedUser} />}
             </Modal>
         </>
     );

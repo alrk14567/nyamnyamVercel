@@ -426,7 +426,7 @@ const PostList: React.FC<Partial<PostListProps>> = ({ restaurantId }) => {
                                                 {p.nickname}
                                             </div>
                                             <Modal isOpen={isUserOpen} onClose={closeUserModal}>
-                                                {selectedUser && <Account selectUser={selectedUser} />}
+                                                {selectedUser && <Account user={selectedUser} />}
                                             </Modal>
                                             <div className="flex items-center gap-2">
                                                 <div className="flex text-secondary2">
