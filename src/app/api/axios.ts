@@ -3,7 +3,7 @@
 import axios from "axios";
 
 export const instance  = axios.create ({
-    baseURL : "https://kidon.nyamnyam.kr"
+    baseURL : "https://abc.nyamnyam.kr"
 }); 
 
 export const instance1  = axios.create ({
