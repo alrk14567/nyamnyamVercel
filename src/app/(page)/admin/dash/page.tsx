@@ -93,10 +93,11 @@ export default function AdminDash() {
     const totalUser = user.length;
     const totalTodayPost = todayPost.length;
 
-
+  
 
     if (role !== 'ADMIN') {
         return (
+            
             <div className="unauthorized text-center mt-5">
                 <h2>권한이 없습니다</h2>
                 <p>You do not have permission to view this content.</p>

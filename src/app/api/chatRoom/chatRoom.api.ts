@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
 
 export async function insertChatRoom(chatRoom: ChatRoomModel): Promise<any | { status: number; data?: any; message?: string }> {
   try {
-    const response = await fetch('https://abc.nyamnyam.kr/api/chatRoom/save', {
+    const response = await fetch('http://localhost:8081/api/chatRoom/save', {
       method: 'POST',
       headers: {
         'Authorization': token ? `Bearer ${token}` : '',
@@ -31,7 +31,7 @@ export async function insertChatRoom(chatRoom: ChatRoomModel): Promise<any | { s
 
 export async function checkChatRoom(chatRoom: ChatRoomModel): Promise<any | { status: number; data?: any; message?: string }> {
   try {
-    const response = await fetch('https://abc.nyamnyam.kr/api/chatRoom/check', {
+    const response = await fetch('http://localhost:8081/api/chatRoom/check', {
       method: 'POST',
       headers: {
         'Authorization': token ? `Bearer ${token}` : '',
@@ -62,7 +62,7 @@ export async function checkChatRoom(chatRoom: ChatRoomModel): Promise<any | { st
 // 챗룸 출력(해당 유저가 참여한으로 수정 필요)
 export const fetchChatRooms = async (nickname: any) => {
   console.log(token)
-  const response = await fetch(`https://abc.nyamnyam.kr/api/chatRoom/findAll/${nickname}`, {
+  const response = await fetch(`http://localhost:8081/api/chatRoom/findAll/${nickname}`, {
     method: 'GET',
     headers: {
       'Authorization': token ? `Bearer ${token}` : '',
@@ -81,7 +81,7 @@ export const fetchChatRooms = async (nickname: any) => {
 // 챗룸 갯수 세는건데 나중에 페이지 할까봐
 export const fetchChatRoomCount = async () => {
 
-  const response = await fetch('https://abc.nyamnyam.kr/api/chatRoom/count', {
+  const response = await fetch('http://localhost:8081/api/chatRoom/count', {
     method: 'GET',
     headers: {
       'Authorization': token ? `Bearer ${token}` : '',
@@ -96,7 +96,7 @@ export const fetchChatRoomCount = async () => {
 
 export const fetchChatRoomById = async (chatRoomId: any) => {
 
-  const response = await fetch(`https://abc.nyamnyam.kr/api/chatRoom/${chatRoomId}`, {
+  const response = await fetch(`http://localhost:8081/api/chatRoom/${chatRoomId}`, {
     method: 'GET',
     headers: {
       'Authorization': token ? `Bearer ${token}` : '',
@@ -112,7 +112,7 @@ export const fetchChatRoomById = async (chatRoomId: any) => {
 
 // api/chatRoomApi.ts
 export const deleteChatRoomApi = async (chatRoomId: string, nickname: string) => {
-  const response = await fetch(`https://abc.nyamnyam.kr/api/chatRoom/leaveChatRoom/${chatRoomId}/${nickname}`, {
+  const response = await fetch(`http://localhost:8081/api/chatRoom/leaveChatRoom/${chatRoomId}/${nickname}`, {
     method: 'DELETE',
     headers: {
       'Authorization': token ? `Bearer ${token}` : '',

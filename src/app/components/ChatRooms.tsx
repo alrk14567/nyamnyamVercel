@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { deleteChatRoomApi } from "../api/chatRoom/chatRoom.api";
+import { useRouter } from 'next/navigation';
 
 interface ChatRoomProps {
     chatRoomId: string;
@@ -9,18 +10,20 @@ interface ChatRoomProps {
 export const ChatRooms: React.FC<ChatRoomProps> = ({ chatRoomId, nickname }) => {
     const [dropdown, setDropdown] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-
+    const router = useRouter();  // 페이지 이동을 위한 라우터
     const openDropdown = () => setDropdown(true);
     const closeDropdown = () => setDropdown(false);
 
     const handleLeaveChatRoom = async () => {
         try {
             await deleteChatRoomApi(chatRoomId, nickname);
-            console.log("채팅방 나가기 성공");
+            router.push(`/chatRoom`);
         } catch (error) {
             console.error("채팅방 나가기 실패", error);
+            router.push(`/chatRoom`);
         } finally {
             closeDropdown();
+            router.push(`/chatRoom`);
         }
     };
 

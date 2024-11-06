@@ -93,6 +93,9 @@ export default function Header() {
                         {user.nickname || user.username}
                       </Link>
                     </div>
+                    <div>
+                      
+                    </div>
                     <button onClick={handleLogout} className="action-btn">
                       <Icon.SignOut size={40} />
                     </button>
