@@ -18,7 +18,7 @@ const fetchRestaurantAll = async () => {
 
 
  const fetchRestaurantsByTag = async (tags: string[]) => {
-    const tagQuery = tags.length > 0 ? { name: tags.join(',') } : {};
+    const tagQuery = tags.length > 0 ? { name: tags.join(',') } : { };
     const response = await strategy.GET(`${api.restaurant}/tag`, tagQuery);
     return response.data;
 };
