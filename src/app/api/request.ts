@@ -8,6 +8,7 @@ export const api = {
     notice: "/api/notice",
     opinion: "/api/opinion",
     post: "/api/posts",
+    restaurants: "/api/restaurants",
     receipt : "/api/receipt",
     reply: "/api/replies",
     report: "/api/report",
