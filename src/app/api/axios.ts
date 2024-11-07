@@ -3,7 +3,7 @@
 import axios from "axios";
 
 export const instance  = axios.create ({
-    baseURL : "https://kidonapi.nyamnyam.kr",
+    baseURL : "https://kidon.nyamnyam.kr",
     headers : {
          'Content-Type': 'application/json'
     },
